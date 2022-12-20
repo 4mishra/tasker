@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div>
+        <h1 class="table-h1">My Tasks</h1>
+        {% if my_tasks_list.all|length > 0 %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                        <th>Is completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in my_tasks_list %}
+                        <tr>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.start_date }}</td>
+                            <td>{{ task.due_date }}</td>
+                            {% if task.is_completed == True %}
+                                <td>Done</td>
+                            {% else %}
+                                <td>
+                                    <form method="post" action="{% url 'complete_task' task.id %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="is_completed" value="True">
+                                        <button class="button-13">Complete</button>
+                                    </form>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You have no tasks</p>
+        {% endif %}
+    </div>
+
+{% endblock main %}

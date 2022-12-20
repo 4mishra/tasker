@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="html-something">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>👌</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav class="dropdownmenu">
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'create_task' %}">Create Task</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'show_my_tasks' %}">Task</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'create_project' %}">Create Projects</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'list_projects' %}">My Projects</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'signup' %}">Signup</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block main %}
+            {% endblock main %}
+        </main>
+        </body>
+    </html>
+
